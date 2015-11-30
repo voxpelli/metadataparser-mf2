@@ -20,6 +20,7 @@ module.exports = MetaDataParser.extend({
       var $mf = cheerio.load($.html());
 
       microformats.parseDom($mf, $mf.root(), {
+        // TODO: Add support for h-feed? h-event? h-item?
         filters: ['h-entry'],
         logLevel: 0,
         baseUrl: data.baseUrl
@@ -34,6 +35,7 @@ module.exports = MetaDataParser.extend({
     });
   },
   extractHrefs: function ($, data) {
+    // TODO: Extract from mf2 data instead – first extract a feed than links for each feed item?
     data.hrefs = [];
 
     var links = $('a');
