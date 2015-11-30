@@ -12,8 +12,10 @@
   "author": "Pelle Wessman <pelle@kodfabrik.se> (http://kodfabrik.se/)",
   "license": "MIT",
   "dependencies": {
-    "metadataparser": "github:voxpelli/metadataparser#master"
-  },
+    "cheerio": "0.19.x",
+    "metadataparser": "github:voxpelli/metadataparser#master",
+    "microformat-node": "~0.3.0"
+},
   "devDependencies": {
     "eslint-config-semistandard": "^5.0.0",
     "eslint-config-standard": "^4.4.0",
