@@ -1,10 +1,11 @@
 'use strict';
 
+var urlModule = require('url');
+
 var MetaDataParser = require('metadataparser').MetaDataParser;
 var microformats = require('microformat-node');
 var microformatsVersion = require('microformat-node/package.json').version;
 var cheerio = require('cheerio');
-var urlTools = require('../utils/url-tools');
 
 module.exports = MetaDataParser.extend({
   addDefaultExtractors: function () {
@@ -45,7 +46,7 @@ module.exports = MetaDataParser.extend({
       href = links.eq(i).attr('href');
       try {
         if (href) {
-          hrefs[urlTools.normalizeUrl(href, { relativeTo: data.baseUrl })] = true;
+          hrefs[urlModule.resolve(data.baseUrl, href)] = true;
         }
       } catch (e) {}
     }
