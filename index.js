@@ -1,12 +1,10 @@
-/*jslint node: true */
+'use strict';
 
-"use strict";
-
-var MetaDataParser = require('metadataparser').MetaDataParser,
-  microformats = require('microformat-node'),
-  microformatsVersion = require('microformat-node/package.json').version,
-  cheerio = require('cheerio'),
-  urlTools = require('../utils/url-tools');
+var MetaDataParser = require('metadataparser').MetaDataParser;
+var microformats = require('microformat-node');
+var microformatsVersion = require('microformat-node/package.json').version;
+var cheerio = require('cheerio');
+var urlTools = require('../utils/url-tools');
 
 module.exports = MetaDataParser.extend({
   addDefaultExtractors: function () {
@@ -21,9 +19,9 @@ module.exports = MetaDataParser.extend({
       var $mf = cheerio.load($.html());
 
       microformats.parseDom($mf, $mf.root(), {
-        filters : ['h-entry'],
-        logLevel : 0,
-        baseUrl: data.baseUrl,
+        filters: ['h-entry'],
+        logLevel: 0,
+        baseUrl: data.baseUrl
       }, function (err, mfData) {
         if (err) { return reject(err); }
 
@@ -37,11 +35,11 @@ module.exports = MetaDataParser.extend({
   extractHrefs: function ($, data) {
     data.hrefs = [];
 
-    var links = $('a'),
-      hrefs = {},
-      i,
-      length,
-      href;
+    var links = $('a');
+    var hrefs = {};
+    var i;
+    var length;
+    var href;
 
     for (i = 0, length = links.length; i < length; i += 1) {
       href = links.eq(i).attr('href');
@@ -57,5 +55,5 @@ module.exports = MetaDataParser.extend({
     }
 
     return data;
-  },
+  }
 });
