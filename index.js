@@ -1,29 +1,22 @@
 'use strict';
 
-var urlModule = require('url');
+const urlModule = require('url');
 
-var microformats = require('microformat-node');
-var microformatsVersion = require('microformat-node/package.json').version;
-var cheerio = require('cheerio');
+const Microformats = require('microformat-node');
 
 const extractMicroformats = function ($, data) {
-  return new Promise(function (resolve, reject) {
-    var $mf = cheerio.load($.html());
-
-    microformats.parseDom($mf, $mf.root(), {
-      // TODO: Add support for h-feed? h-event? h-item?
-      filters: ['h-entry'],
-      logLevel: 0,
-      baseUrl: data.baseUrl
-    }, function (err, mfData) {
-      if (err) { return reject(err); }
-
-      data.microformats = mfData;
-      data.microformatsVersion = microformatsVersion;
-
-      resolve(data);
-    });
-  });
+  return Microformats.getAsync({
+    html: $.html(),
+    // TODO: Add support for h-feed? h-event? h-item?
+    filters: ['h-entry'],
+    baseUrl: data.baseUrl,
+    dateFormat: 'w3c'
+  })
+    .then(mfData => Object.assign(data, {
+      microformats: mfData,
+      microformatsVersion: Microformats.version,
+      mf2Version: Microformats.livingStandard
+    }));
 };
 
 const extractHrefs = function ($, data) {
@@ -56,6 +49,8 @@ const addToParser = function (parserInstance) {
   parserInstance.removeExtractor('headers');
   parserInstance.addExtractor('microformats', extractMicroformats);
   parserInstance.addExtractor('hrefs', extractHrefs);
+
+  return parserInstance;
 };
 
 module.exports = {

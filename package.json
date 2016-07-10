@@ -19,8 +19,7 @@
     "node": ">=5.0.0"
   },
   "dependencies": {
-    "cheerio": "0.19.x",
-    "microformat-node": "~0.3.0"
+    "microformat-node": "^2.0.0"
   },
   "devDependencies": {
     "chai": "^3.5.0",

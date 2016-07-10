@@ -14,7 +14,7 @@ describe('MetaDataParserMf2', function () {
 
   // Taken from the h-entry Microformats wiki page
   const exampleHtml = '<article class="h-entry">' +
-    '  <h1 class="p-name"><a class="u-url" href="http://example.net/abc">Microformats are amazing</a></h1>' +
+    '  <h1 class="p-name"><a class="u-url" href="/abc">Microformats are amazing</a></h1>' +
     '  <p>Published by <a class="p-author h-card" href="http://example.com">W. Developer</a>' +
     '     on <time class="dt-published" datetime="2013-06-13 12:00:00">13<sup>th</sup> June 2013</time>' +
     '  <p class="p-summary">In which I extoll the virtues of using microformats.</p>' +
@@ -25,10 +25,7 @@ describe('MetaDataParserMf2', function () {
 
   beforeEach(function () {
     sourceUrl = 'http://example.com/foo';
-
-    parser = new MetaDataParser();
-
-    MetaDataParserMf2.addToParser(parser);
+    parser = MetaDataParserMf2.addToParser(new MetaDataParser());
   });
 
   describe('extract', function () {
@@ -39,8 +36,18 @@ describe('MetaDataParserMf2', function () {
         .that.contain.keys('items', 'rels')
         .and.has.deep.property('items[0].properties')
           .that.is.an('object')
-          .that.contain.keys('author', 'name', 'published', 'summary')
-          .that.have.deep.property('author[0].properties.name[0]', 'W. Developer');
+          .that.contain.keys('author', 'name', 'published', 'summary', 'url')
+          .then(props => Promise.all([
+            props.should.have.property('url').that.deep.equals(['http://example.com/abc']),
+            props.should.have.property('published').that.deep.equals(['2013-06-13T12:00:00']),
+            props.should.have.deep.property('author[0].properties.name[0]', 'W. Developer'),
+            props.should.have.property('content').that.deep.equals([
+              {
+                html: '    <p><a href="http://example.org/bar">Blah</a> blah blah</p>  ',
+                value: 'Blah blah blah'
+              }
+            ])
+          ]));
     });
   });
 });
