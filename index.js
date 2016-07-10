@@ -2,61 +2,64 @@
 
 var urlModule = require('url');
 
-var MetaDataParser = require('metadataparser').MetaDataParser;
 var microformats = require('microformat-node');
 var microformatsVersion = require('microformat-node/package.json').version;
 var cheerio = require('cheerio');
 
-module.exports = MetaDataParser.extend({
-  addDefaultExtractors: function () {
-    MetaDataParser.prototype.addDefaultExtractors.call(this);
+const extractMicroformats = function ($, data) {
+  return new Promise(function (resolve, reject) {
+    var $mf = cheerio.load($.html());
 
-    this.removeExtractor('headers');
-    this.addExtractor('microformats', this.extractMicroformats);
-    this.addExtractor('hrefs', this.extractHrefs);
-  },
-  extractMicroformats: function ($, data) {
-    return new Promise(function (resolve, reject) {
-      var $mf = cheerio.load($.html());
+    microformats.parseDom($mf, $mf.root(), {
+      // TODO: Add support for h-feed? h-event? h-item?
+      filters: ['h-entry'],
+      logLevel: 0,
+      baseUrl: data.baseUrl
+    }, function (err, mfData) {
+      if (err) { return reject(err); }
 
-      microformats.parseDom($mf, $mf.root(), {
-        // TODO: Add support for h-feed? h-event? h-item?
-        filters: ['h-entry'],
-        logLevel: 0,
-        baseUrl: data.baseUrl
-      }, function (err, mfData) {
-        if (err) { return reject(err); }
+      data.microformats = mfData;
+      data.microformatsVersion = microformatsVersion;
 
-        data.microformats = mfData;
-        data.microformatsVersion = microformatsVersion;
-
-        resolve(data);
-      });
+      resolve(data);
     });
-  },
-  extractHrefs: function ($, data) {
-    // TODO: Extract from mf2 data instead – first extract a feed than links for each feed item?
-    data.hrefs = [];
+  });
+};
 
-    var links = $('a');
-    var hrefs = {};
-    var i;
-    var length;
-    var href;
+const extractHrefs = function ($, data) {
+  // TODO: Extract from mf2 data instead – first extract a feed than links for each feed item?
+  data.hrefs = [];
 
-    for (i = 0, length = links.length; i < length; i += 1) {
-      href = links.eq(i).attr('href');
-      try {
-        if (href) {
-          hrefs[urlModule.resolve(data.baseUrl, href)] = true;
-        }
-      } catch (e) {}
-    }
+  var links = $('a');
+  var hrefs = {};
+  var i;
+  var length;
+  var href;
 
-    for (i in hrefs) {
-      data.hrefs.push(i);
-    }
-
-    return data;
+  for (i = 0, length = links.length; i < length; i += 1) {
+    href = links.eq(i).attr('href');
+    try {
+      if (href) {
+        hrefs[urlModule.resolve(data.baseUrl, href)] = true;
+      }
+    } catch (e) {}
   }
-});
+
+  for (i in hrefs) {
+    data.hrefs.push(i);
+  }
+
+  return data;
+};
+
+const addToParser = function (parserInstance) {
+  parserInstance.removeExtractor('headers');
+  parserInstance.addExtractor('microformats', extractMicroformats);
+  parserInstance.addExtractor('hrefs', extractHrefs);
+};
+
+module.exports = {
+  addToParser,
+  extractMicroformats,
+  extractHrefs
+};
