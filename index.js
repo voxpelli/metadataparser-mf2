@@ -1,6 +1,7 @@
 'use strict';
 
 const urlModule = require('url');
+const parserVersion = require('./package.json').version;
 
 const Microformats = require('microformat-node');
 
@@ -14,8 +15,11 @@ const extractMicroformats = function ($, data) {
   })
     .then(mfData => Object.assign(data, {
       microformats: mfData,
-      microformatsVersion: Microformats.version,
-      mf2Version: Microformats.livingStandard
+      microformatsVersion: {
+        parserVersion,
+        version: Microformats.version,
+        livingStandard: Microformats.livingStandard
+      }
     }));
 };
 
