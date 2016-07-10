@@ -1,9 +1,14 @@
 'use strict';
 
 const urlModule = require('url');
-const parserVersion = require('./package.json').version;
 
 const Microformats = require('microformat-node');
+
+const versions = {
+  version: require('./package.json').version,
+  microformatsVersion: Microformats.version,
+  livingStandard: Microformats.livingStandard
+};
 
 const extractMicroformats = function ($, data) {
   return Microformats.getAsync({
@@ -15,11 +20,7 @@ const extractMicroformats = function ($, data) {
   })
     .then(mfData => Object.assign(data, {
       microformats: mfData,
-      microformatsVersion: {
-        parserVersion,
-        version: Microformats.version,
-        livingStandard: Microformats.livingStandard
-      }
+      microformatsVersion: versions
     }));
 };
 
@@ -60,5 +61,6 @@ const addToParser = function (parserInstance) {
 module.exports = {
   addToParser,
   extractMicroformats,
-  extractHrefs
+  extractHrefs,
+  versions
 };
