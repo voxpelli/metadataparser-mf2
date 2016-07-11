@@ -37,6 +37,6 @@
     "mocha": "^2.3.4"
   },
   "peerDependencies": {
-    "metadataparser": "github:voxpelli/metadataparser#1.x"
+    "metadataparser": "^1.0.0"
   }
 }
