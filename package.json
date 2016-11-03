@@ -25,7 +25,7 @@
   "devDependencies": {
     "@voxpelli/metadataparser": "^2.0.0",
     "chai": "^3.5.0",
-    "chai-as-promised": "^5.3.0",
+    "chai-as-promised": "^6.0.0",
     "coveralls": "^2.11.2",
     "dependency-check": "^2.5.2",
     "eslint": "^3.4.0",
