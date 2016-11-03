@@ -28,14 +28,11 @@ const extractHrefs = function ($, data) {
   // TODO: Extract from mf2 data instead – first extract a feed than links for each feed item?
   data.hrefs = [];
 
-  var links = $('a');
-  var hrefs = {};
-  var i;
-  var length;
-  var href;
+  const links = $('a');
+  const hrefs = {};
 
-  for (i = 0, length = links.length; i < length; i += 1) {
-    href = links.eq(i).attr('href');
+  for (let i = 0, length = links.length; i < length; i += 1) {
+    const href = links.eq(i).attr('href');
     try {
       if (href) {
         hrefs[urlModule.resolve(data.baseUrl, href)] = true;
@@ -43,7 +40,7 @@ const extractHrefs = function ($, data) {
     } catch (e) {}
   }
 
-  for (i in hrefs) {
+  for (let i in hrefs) {
     data.hrefs.push(i);
   }
 
