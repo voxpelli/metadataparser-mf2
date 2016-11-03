@@ -7,7 +7,7 @@ chai.use(chaiAsPromised);
 chai.should();
 
 describe('MetaDataParserMf2', function () {
-  const MetaDataParser = require('metadataparser').MetaDataParser;
+  const MetaDataParser = require('@voxpelli/metadataparser').MetaDataParser;
   const MetaDataParserMf2 = require('../.');
 
   let parser, sourceUrl;

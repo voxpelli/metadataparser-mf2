@@ -23,6 +23,7 @@
     "microformat-node": "^2.0.1"
   },
   "devDependencies": {
+    "@voxpelli/metadataparser": "^2.0.0",
     "chai": "^3.5.0",
     "chai-as-promised": "^5.3.0",
     "coveralls": "^2.11.2",
@@ -34,11 +35,10 @@
     "eslint-plugin-standard": "^2.0.0",
     "husky": "~0.11.4",
     "installed-check": "^2.0.0",
-    "metadataparser": "github:voxpelli/metadataparser#1.x",
     "istanbul": "^0.4.5",
     "mocha": "^3.1.2"
   },
   "peerDependencies": {
-    "metadataparser": "^1.0.0"
+    "@voxpelli/metadataparser": "^2.0.0"
   }
 }
