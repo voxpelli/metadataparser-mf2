@@ -19,7 +19,7 @@
     "node": ">=5.0.0"
   },
   "dependencies": {
-    "microformat-node": "github:voxpelli/microformat-node#decode-entities-in-urls"
+    "microformat-node": "^2.0.1"
   },
   "devDependencies": {
     "chai": "^3.5.0",
