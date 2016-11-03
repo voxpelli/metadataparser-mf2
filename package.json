@@ -1,5 +1,5 @@
 {
-  "name": "metadataparser-mf2",
+  "name": "@voxpelli/metadataparser-mf2",
   "version": "0.2.0",
   "description": "Provides an Microformats 2 extended MetaDataParser",
   "main": "index.js",
@@ -9,7 +9,7 @@
     "test": "installed-check -e && eslint . && npm run dependency-check && npm run mocha",
     "prepush": "npm test"
   },
-  "keywords": [],
+  "homepage": "https://github.com/voxpelli/metadataparser-mf2",
   "author": "Pelle Wessman <pelle@kodfabrik.se> (http://kodfabrik.se/)",
   "repository": {
     "type": "git",
