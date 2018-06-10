@@ -24,8 +24,8 @@
   },
   "devDependencies": {
     "@voxpelli/metadataparser": "2.0.1",
-    "chai": "3.5.0",
-    "chai-as-promised": "6.0.0",
+    "chai": "4.1.2",
+    "chai-as-promised": "7.1.1",
     "coveralls": "3.0.1",
     "dependency-check": "3.1.0",
     "eslint": "3.19.0",
@@ -36,7 +36,7 @@
     "husky": "0.14.3",
     "installed-check": "2.1.3",
     "istanbul": "0.4.5",
-    "mocha": "3.5.3"
+    "mocha": "5.2.0"
   },
   "peerDependencies": {
     "@voxpelli/metadataparser": "^2.0.0"
