@@ -26,7 +26,7 @@
     "@voxpelli/metadataparser": "2.0.1",
     "chai": "3.5.0",
     "chai-as-promised": "7.1.1",
-    "coveralls": "3.0.1",
+    "coveralls": "3.0.2",
     "dependency-check": "3.1.0",
     "eslint": "3.19.0",
     "eslint-config-semistandard": "7.0.0",
