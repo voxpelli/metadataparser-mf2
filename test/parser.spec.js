@@ -19,6 +19,7 @@ describe('MetaDataParserMf2', function () {
     '     on <time class="dt-published" datetime="2013-06-13 12:00:00">13<sup>th</sup> June 2013</time>' +
     '  <p class="p-summary">In which I extoll the virtues of using microformats.</p>' +
     '  <div class="e-content">' +
+    '    <p><a href="#bar">Yet</a> another <a>wow</a></p>' +
     '    <p><a href="http://example.org/bar">Blah</a> blah blah</p>' +
     '  </div>' +
     '</article>';
@@ -43,8 +44,8 @@ describe('MetaDataParserMf2', function () {
           props.should.have.deep.property('author[0].properties.name[0]', 'W. Developer'),
           props.should.have.property('content').that.deep.equals([
             {
-              html: '    <p><a href="http://example.org/bar">Blah</a> blah blah</p>  ',
-              value: 'Blah blah blah'
+              html: '    <p><a href="http://example.com/foo#bar">Yet</a> another <a>wow</a></p>    <p><a href="http://example.org/bar">Blah</a> blah blah</p>  ',
+              value: 'Yet another wow    Blah blah blah'
             }
           ])
         ]));
