@@ -1,6 +1,6 @@
 {
   "name": "@voxpelli/metadataparser-mf2",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Provides an Microformats 2 extended MetaDataParser",
   "main": "index.js",
   "scripts": {
