@@ -1,6 +1,6 @@
 'use strict';
 
-const urlModule = require('url');
+const { URL } = require('url');
 
 const Microformats = require('microformat-node');
 
@@ -35,7 +35,8 @@ const extractHrefs = function ($, data) {
     const href = links.eq(i).attr('href');
     try {
       if (href) {
-        hrefs[urlModule.resolve(data.baseUrl, href)] = true;
+        const resolvedUrl = (new URL(href, data.baseUrl)).toString();
+        hrefs[resolvedUrl] = true;
       }
     } catch (e) {}
   }
