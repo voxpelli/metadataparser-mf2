@@ -28,7 +28,7 @@
   },
   "devDependencies": {
     "@voxpelli/metadataparser": "2.0.1",
-    "chai": "3.5.0",
+    "chai": "4.2.0",
     "chai-as-promised": "7.1.1",
     "coveralls": "3.0.2",
     "dependency-check": "3.2.1",

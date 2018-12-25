@@ -35,14 +35,14 @@ describe('MetaDataParserMf2', function () {
         .should.eventually.be.an('object')
         .that.has.property('microformats')
         .that.contain.keys('items', 'rels')
-        .and.has.deep.property('items[0].properties')
+        .and.has.nested.property('items[0].properties')
         .that.is.an('object')
         .that.contain.keys('author', 'name', 'published', 'summary', 'url')
         .then(props => Promise.all([
-          props.should.have.property('url').that.deep.equals(['http://example.com/abc']),
-          props.should.have.property('published').that.deep.equals(['2013-06-13T12:00:00']),
-          props.should.have.deep.property('author[0].properties.name[0]', 'W. Developer'),
-          props.should.have.property('content').that.deep.equals([
+          props.should.have.deep.property('url', ['http://example.com/abc']),
+          props.should.have.deep.property('published', ['2013-06-13T12:00:00']),
+          props.should.have.nested.property('author[0].properties.name[0]', 'W. Developer'),
+          props.should.have.deep.property('content', [
             {
               html: '    <p><a href="http://example.com/foo#bar">Yet</a> another <a>wow</a></p>    <p><a href="http://example.org/bar">Blah</a> blah blah</p>  ',
               value: 'Yet another wow    Blah blah blah'
