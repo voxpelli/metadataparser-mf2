@@ -4,7 +4,7 @@
   "description": "Provides an Microformats 2 extended MetaDataParser",
   "main": "index.js",
   "scripts": {
-    "mocha": "NODE_ENV=test istanbul cover _mocha -- -u exports -R spec test/**/*.spec.js",
+    "mocha": "NODE_ENV=test nyc --reporter=lcov --reporter text mocha test/**/*.spec.js",
     "dependency-check": "JS_FILES=\"*.js test/*.js\" && dependency-check . $JS_FILES && dependency-check . $JS_FILES --unused --no-dev",
     "test": "installed-check -e -i eslint && eslint . && npm run --silent dependency-check && npm run --silent mocha"
   },
@@ -41,8 +41,8 @@
     "eslint-plugin-standard": "4.0.0",
     "husky": "1.2.1",
     "installed-check": "2.2.0",
-    "istanbul": "0.4.5",
-    "mocha": "5.2.0"
+    "mocha": "5.2.0",
+    "nyc": "13.1.0"
   },
   "peerDependencies": {
     "@voxpelli/metadataparser": "^2.0.0"
