@@ -35,19 +35,19 @@ describe('MetaDataParserMf2', function () {
         .that.has.property('microformats')
         .that.contain.keys('items', 'rels')
         .and.has.deep.property('items[0].properties')
-          .that.is.an('object')
-          .that.contain.keys('author', 'name', 'published', 'summary', 'url')
-          .then(props => Promise.all([
-            props.should.have.property('url').that.deep.equals(['http://example.com/abc']),
-            props.should.have.property('published').that.deep.equals(['2013-06-13T12:00:00']),
-            props.should.have.deep.property('author[0].properties.name[0]', 'W. Developer'),
-            props.should.have.property('content').that.deep.equals([
-              {
-                html: '    <p><a href="http://example.org/bar">Blah</a> blah blah</p>  ',
-                value: 'Blah blah blah'
-              }
-            ])
-          ]));
+        .that.is.an('object')
+        .that.contain.keys('author', 'name', 'published', 'summary', 'url')
+        .then(props => Promise.all([
+          props.should.have.property('url').that.deep.equals(['http://example.com/abc']),
+          props.should.have.property('published').that.deep.equals(['2013-06-13T12:00:00']),
+          props.should.have.deep.property('author[0].properties.name[0]', 'W. Developer'),
+          props.should.have.property('content').that.deep.equals([
+            {
+              html: '    <p><a href="http://example.org/bar">Blah</a> blah blah</p>  ',
+              value: 'Blah blah blah'
+            }
+          ])
+        ]));
     });
   });
 });
