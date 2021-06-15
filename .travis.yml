@@ -1,7 +1,8 @@
 language: node_js
 node_js:
-  - "node"
-  - "6"
+  - "12"
+  - "14"
+  - "16"
 script: npm test
 sudo: false
 after_success:
